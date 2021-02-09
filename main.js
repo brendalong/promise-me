@@ -9,18 +9,27 @@ getAllPromise = () => {
 			// const fetchDataURL = parsedResponse[item].pName;
 			return fetch(`${firebaseConfig.databaseURL}/allPokemon.json/?orderBy="slug"&equalTo="${parsedResponse[item].pName}"`)
 			.then(response => response.json())
+			.then(parsedResponse => {
+				console.log("parsed", Object.values(Object.entries(parsedResponse))[0][1]);
+				//Object.keys(parsedResponse).map((key) => [Number(key), obj[key]]);
+			})
 		})
 			return urlArray; 
 		})
 	.then(requests => {
-		Promise.all(requests)
+		// return  Promise.all(requests) // short for the following...
+		let newStuff = Promise.all(requests)
 		  .then(responses => {
-		  console.log("responses", responses)
-		  })
+		  	return responses;
+		  	})
+		return newStuff;
 	})
 }
 
-getAllPromise();
+getAllPromise()
+.then(response => {
+console.log("what now", response);
+})
 
 //https://javascript.info/promise-api
 	
